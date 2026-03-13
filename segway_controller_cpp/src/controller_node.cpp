@@ -133,7 +133,9 @@ private:
   void reset_timing_window(const std::chrono::steady_clock::time_point & now)
   {
     window_start_ = now;
-    next_log_ = now + std::chrono::duration<double>(timing_log_interval_s_);
+    const auto log_interval = std::chrono::duration_cast<std::chrono::steady_clock::duration>(
+      std::chrono::duration<double>(timing_log_interval_s_));
+    next_log_ = now + log_interval;
     dt_count_ = 0;
     dt_sum_ = 0.0;
     dt_min_ = std::numeric_limits<double>::infinity();
